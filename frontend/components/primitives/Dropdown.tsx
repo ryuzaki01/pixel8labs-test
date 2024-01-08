@@ -93,4 +93,9 @@ const Dropdown = forwardRef<
   )
 })
 
+Dropdown.displayName = 'Dropdown'
+DropdownMenuContent.displayName = 'DropdownMenuContent'
+DropdownMenuItem.displayName = 'DropdownMenuItem'
+AnimatedDropdownMenuContent.displayName = 'AnimatedDropdownMenuContent'
+
 export { Dropdown, DropdownMenuContent, DropdownMenuItem }

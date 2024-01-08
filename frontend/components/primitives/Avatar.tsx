@@ -91,4 +91,6 @@ const Avatar = forwardRef<
   </AvatarRoot>
 ))
 
+Avatar.displayName = 'Avatar'
+
 export default Avatar

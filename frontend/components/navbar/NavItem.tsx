@@ -1,17 +1,20 @@
 import { Text } from 'components/primitives'
 import { ComponentPropsWithoutRef, forwardRef, ReactNode } from 'react'
 import {CSS} from "@stitches/react";
+import { ReactComponentLike } from 'prop-types';
 
 type NavItemProps = {
   active?: boolean
   css?: CSS
   children: ReactNode
+  as?: string | ReactComponentLike
+  href?: string
 }
 
 const NavItem = forwardRef<
   HTMLParagraphElement,
   ComponentPropsWithoutRef<typeof Text> & NavItemProps
->(({ children, active, css, ...props }, forwardedRef) => (
+>(({ children, as, href, active, css, ...props }, forwardedRef) => (
   <Text
     ref={forwardedRef}
     css={{
@@ -22,12 +25,15 @@ const NavItem = forwardRef<
       },
       ...css
     }}
-    as="p"
+    as={as}
+    href={href}
     style="body1"
     {...props}
   >
     {children}
   </Text>
 ))
+
+NavItem.displayName = 'NavItem'
 
 export default NavItem

@@ -1,12 +1,16 @@
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Layout from "components/Layout";
 import {Flex, Text} from "components/primitives";
-import ProfileCard from '../components/home/ProfileCard';
-import RepositoryItem from '../components/home/RepositoryItem';
+import ProfileCard from '../components/profile/ProfileCard';
+import RepositoryItem from '../components/profile/RepositoryItem';
 import Badge from '../components/primitives/Badge';
-import { useRepositories } from '../hooks';
+import { useRepositories, useUser } from '../hooks';
 
-const HomePage = () => {
-  const { data: repositories } = useRepositories()
+type Props = InferGetServerSidePropsType<typeof getServerSideProps>
+
+const ProfilePage = (props: Props) => {
+  const { data: repositories } = useRepositories(props.ssr.username)
+  const { data: profile } = useUser(props.ssr.username)
 
   return (
     <Layout>
@@ -25,7 +29,7 @@ const HomePage = () => {
           },
         }}
       >
-        <ProfileCard />
+        <ProfileCard profile={profile}/>
         <Flex
           css={{
             backgroundColor: '$neutralBg',
@@ -50,4 +54,14 @@ const HomePage = () => {
   )
 }
 
-export default HomePage
+export const getServerSideProps: GetServerSideProps<{
+  ssr: {
+    username: string
+  }
+}> = async ({ query }) => {
+  return {
+    props: { ssr: { username: query.username as string } }
+  }
+}
+
+export default ProfilePage

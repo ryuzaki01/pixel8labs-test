@@ -130,4 +130,10 @@ const Dialog = forwardRef<
   }
 )
 
+Dialog.displayName = 'Dialog'
+Content.displayName = 'DialogContent'
+AnimatedContent.displayName = 'DialogAnimatedContent'
+Overlay.displayName = 'DialogOverlay'
+AnimatedOverlay.displayName = 'DialogAnimatedOverlay'
+
 export { Dialog, Content, AnimatedContent, Overlay, AnimatedOverlay }

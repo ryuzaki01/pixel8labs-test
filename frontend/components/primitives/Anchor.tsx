@@ -45,7 +45,7 @@ export const StyledAnchor = styled('a', {
   },
 })
 
-export const Anchor = forwardRef<
+const Anchor = forwardRef<
   ElementRef<typeof StyledAnchor>,
   ComponentPropsWithoutRef<typeof StyledAnchor>
 >(({ children, ...props }, forwardedRef) => (
@@ -53,3 +53,7 @@ export const Anchor = forwardRef<
     {children}
   </StyledAnchor>
 ))
+
+Anchor.displayName = 'Anchor'
+
+export default Anchor;

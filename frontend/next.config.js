@@ -10,6 +10,15 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/octocat',
+        permanent: true,
+      }
+    ];
+  },
 }
 
 module.exports = nextConfig

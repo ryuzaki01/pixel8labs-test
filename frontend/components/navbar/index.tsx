@@ -52,7 +52,7 @@ const Navbar = () => {
       >
         <Flex align="center" justify="between" css={{ flex: 1 }}>
           <Flex align="center" css={{ flex: 1, gap: 32 }}>
-            <Link href={`/`}>
+            <Link href={`/octocat`}>
               <Flex
                 align="center"
                 css={{
@@ -128,7 +128,6 @@ const Navbar = () => {
                         </Flex>
                       </Flex>
                       <NavItem
-                        /** @ts-ignore **/
                         as={Link}
                         css={{
                           py: 10,
@@ -138,7 +137,10 @@ const Navbar = () => {
                             backgroundColor: "#F7F8FC",
                           }
                         }}
-                        href="/"
+                        href={`/${
+                          // @ts-ignore
+                          session.user?.username
+                        }`}
                       >
                         <Text style="body1" color="dark" css={{ fontWeight: 500 }}>View Profile</Text>
                       </NavItem>

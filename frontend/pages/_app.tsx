@@ -19,9 +19,13 @@ Router.events.on("routeChangeComplete", nProgress.done);
 function AppWrapper(props: AppProps<{
   session: Session;
 }>) {
+  // @ts-ignore
   const { session, ...pageProps } = props;
   return (
-    <SessionProvider session={props.session}>
+    <SessionProvider session={
+      // @ts-ignore
+      props.session
+    }>
       <MyApp {...pageProps} />
     </SessionProvider>
   )
@@ -36,6 +40,7 @@ function MyApp({
   return (
     <Tooltip.Provider>
       <ToastContextProvider>
+        {/** @ts-ignore **/}
         <Component {...pageProps} />
       </ToastContextProvider>
     </Tooltip.Provider>

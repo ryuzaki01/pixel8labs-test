@@ -5,3 +5,8 @@ declare type Repository = {
   language: string
   updated_at: string
 }
+
+declare type Visitor = {
+  username: string
+  avatar: string
+}

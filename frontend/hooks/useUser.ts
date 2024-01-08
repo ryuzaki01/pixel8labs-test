@@ -1,8 +1,8 @@
 import useSWR, {SWRConfiguration} from "swr";
 
-export default function useRepositories(username: string, options?: SWRConfiguration) {
+export default function useUser(username: string, options?: SWRConfiguration) {
   const { data, mutate, isValidating, isLoading } = useSWR(
-    username ? `/api/repositories/${username}` : null,
+    username ? `/api/user/${username}` : null,
     (url: string) => {
       return fetch(url).then((response) => response.json())
     },
@@ -15,7 +15,7 @@ export default function useRepositories(username: string, options?: SWRConfigura
   )
 
   return {
-    data: data as Repository[],
+    data,
     mutate,
     isValidating,
     isLoading
