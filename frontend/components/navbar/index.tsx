@@ -33,11 +33,7 @@ const Navbar = () => {
         boxShadow: '0px 1px 2px 0px #1018280D',
         top: 0,
         left: 0,
-        px: 24,
-        right: 0,
-        '@lg': {
-          px: 0
-        }
+        right: 0
       }}
       align="center"
       justify="center"
@@ -46,7 +42,10 @@ const Navbar = () => {
         css={{
           width: '100%',
           maxWidth: 1280,
-          px: 32
+          px: 16,
+          '@lg': {
+            px: 32
+          }
         }}
         align="center"
         justify="between"
@@ -57,7 +56,8 @@ const Navbar = () => {
               <Flex
                 align="center"
                 css={{
-                  gap: 10
+                  gap: 10,
+                  p: 10
                 }}
               >
                 <Image
@@ -160,7 +160,7 @@ const Navbar = () => {
                   </HoverCard.Content>
                 </HoverCard.Root>
               ) : (
-                <Button size="sm" onClick={() => signIn()}>Login with Github</Button>
+                <Button size="sm" onClick={() => signIn('github')}>Login with Github</Button>
               )}
             </Box>
           </Flex>

@@ -93,6 +93,6 @@ export default styled('span', {
   },
 
   defaultVariants: {
-    style: 'body1',
+    style: 'body2',
   },
 })

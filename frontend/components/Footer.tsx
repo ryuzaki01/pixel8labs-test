@@ -1,14 +1,10 @@
-import { Text, Flex, Anchor } from './primitives'
-import Image from 'next/image'
+import { Text, Flex } from './primitives'
 
 export const Footer = () => {
   return (
     <Flex
       css={{
-        backgroundColor: '$neutralBgSubtle',
-        position: 'fixed',
-        bottom: 0,
-        width: '100%',
+        backgroundColor: '$neutralBgSubtle'
       }}
     >
       <Flex

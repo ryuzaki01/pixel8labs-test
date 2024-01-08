@@ -1,11 +1,15 @@
 import { FC } from 'react';
-import { Flex } from '../primitives';
+import { Flex, Text } from '../primitives';
+import Badge from '../primitives/Badge';
+import RepoLanguageColor from './RepoLanguageColor';
 
 type RepositoryItemProps = {
   data: Repository
 }
 
 const RepositoryItem : FC<RepositoryItemProps> = (props) => {
+  const { data } = props;
+
   return (
     <Flex
       direction="column"
@@ -17,7 +21,24 @@ const RepositoryItem : FC<RepositoryItemProps> = (props) => {
         border: '1px solid $gray200'
       }}
     >
-
+      <Flex direction="column" css={{ gap: 8 }}>
+        <Flex css={{ gap: 12 }}>
+          <Text style="body1" boldest>{data.name}</Text>
+          <Badge color={data.private ? 'secondary' : 'primary'}>{data.private ? 'private' : 'public'}</Badge>
+        </Flex>
+        <Text>{data.description}</Text>
+      </Flex>
+      <Flex css={{ gap: 23 }}>
+        <Flex css={{ gap: 4 }} align="center">
+          <RepoLanguageColor language={data.language}/>
+          <Text style="body3" css={{
+            '&::first-letter': {
+              textTransform: 'capitalize'
+            }
+          }}>{data.language}</Text>
+        </Flex>
+        <Text style="body3">{data.updated_at}</Text>
+      </Flex>
     </Flex>
   )
 }

@@ -1,9 +1,13 @@
 import Layout from "components/Layout";
-import {Footer} from "components/Footer";
 import {Flex, Text} from "components/primitives";
 import ProfileCard from '../components/home/ProfileCard';
+import RepositoryItem from '../components/home/RepositoryItem';
+import Badge from '../components/primitives/Badge';
+import { useRepositories } from '../hooks';
 
 const HomePage = () => {
+  const { data: repositories } = useRepositories()
+
   return (
     <Layout>
       <Flex
@@ -11,13 +15,13 @@ const HomePage = () => {
           flexDirection: 'column',
           maxWidth: 1280,
           mx: 'auto',
-          px: 32,
           pt: 24,
           pb: 64,
           gap: 32,
           '@lg': {
             flexDirection: 'row',
             gap: 32,
+            px: 32,
           },
         }}
       >
@@ -33,7 +37,13 @@ const HomePage = () => {
           }}
           direction="column"
         >
-          <Text style="h5" boldest>Repository</Text>
+          <Flex css={{ gap: 12 }} align="center">
+            <Text style="h5" boldest>Repository</Text>
+            <Badge color="secondary" css={{ fontSize: 14, fontWeight: 500, borderRadius: 16 }}>{(repositories || []).length}</Badge>
+          </Flex>
+          {(repositories || []).map(repo => (
+            <RepositoryItem key={`repo-${repo.name}`} data={repo} />
+          ))}
         </Flex>
       </Flex>
     </Layout>

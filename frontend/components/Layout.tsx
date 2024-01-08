@@ -14,11 +14,14 @@ const Layout: FC<Props> = ({ children }) => {
       css={{
         height: '100%',
         minHeight: '100vh',
-        pt: 80,
-        pb: 90
+        pt: 80
       }}
     >
-      <Box>
+      <Box
+        css={{
+          minHeight: 'calc(100vh - 80px - 87px)',
+        }}
+      >
         <Navbar />
         <main>{children}</main>
       </Box>

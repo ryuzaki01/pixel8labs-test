@@ -1,7 +1,7 @@
 declare type Repository = {
-  name
-  description
-  isPrivate
-  primaryLanguage
-  pushedAt
+  name: string
+  description: string
+  private: boolean
+  language: string
+  updated_at: string
 }

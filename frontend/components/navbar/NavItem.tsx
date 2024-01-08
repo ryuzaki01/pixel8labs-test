@@ -23,7 +23,7 @@ const NavItem = forwardRef<
       ...css
     }}
     as="p"
-    style="subtitle1"
+    style="body1"
     {...props}
   >
     {children}

@@ -1,9 +1,9 @@
-import {unstable_getServerSession} from "next-auth/next";
+import { getServerSession } from "next-auth";
 import {authOptions} from "./auth/[...nextauth]";
 import {NextApiRequest, NextApiResponse} from "next";
 
 export default async function profileHandler(req: NextApiRequest, res: NextApiResponse) {
-  const session: any = await unstable_getServerSession(req as any, res as any, authOptions as any);
+  const session: any = await getServerSession(req as any, res as any, authOptions as any);
 
   if (!session) {
     return res.json({

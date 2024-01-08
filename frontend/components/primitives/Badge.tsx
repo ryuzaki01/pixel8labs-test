@@ -2,18 +2,19 @@ import { styled } from 'stitches.config'
 
 export default styled('span', {
   display: 'inline-block',
-  fontSize: 10,
+  fontSize: 12,
   fontFamily: '$button',
-  backgroundColor: '#fff',
-  px: 5,
+  px: 8,
   py: 2,
   variants: {
     color: {
       primary: {
-        color: '$primary7'
+        backgroundColor: '$purple50',
+        color: '$purple700'
       },
       secondary: {
-        color: '#000'
+        backgroundColor: '$gray100',
+        color: '$gray700'
       },
     },
     corners: {
