@@ -25,12 +25,8 @@ jobs:
           node-version: 16
           cache: 'npm'
 
-      # ESLint and Prettier must be in `package.json`
-      - name: Install Node.js dependencies
-        run: npm ci
+      - name: Install modules
+        run: yarn
 
-      - name: Run linters
-        uses: wearerequired/lint-action@v2
-        with:
-          eslint: true
-          prettier: true
+      - name: Running linters
+        run: yarn eslint . --ext .js,.jsx,.ts,.tsx
