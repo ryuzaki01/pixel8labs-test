@@ -37,7 +37,7 @@ const ProfileCard = (props: ProfileCardProps) => {
         p: 24,
         gap: 24,
         '@lg': {
-          width: 232
+          width: 250
         }
       }}
     >
@@ -103,8 +103,8 @@ const ProfileCard = (props: ProfileCardProps) => {
           >
             <FontAwesomeIcon icon={faEnvelope} style={{ width: 20, height: 20 }} color="#344054" />
             {isLoading ?
-              <Skeleton variant="heading" css={{ width: '100%' }} /> :
-              <Text style="body2" css={{ mb: 8 }}>{profile?.email || '-'}</Text>
+              <Skeleton variant="heading" css={{ width: 'calc(100% - 28px)' }} /> :
+              <Text style="body2" css={{ mb: 8, wordBreak: 'break-all' }}>{profile?.email || '-'}</Text>
             }
           </Flex>
           <Flex
