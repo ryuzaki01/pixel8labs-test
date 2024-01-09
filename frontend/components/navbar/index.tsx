@@ -9,6 +9,7 @@ import NavItem from './NavItem'
 import { useMounted } from 'hooks'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import HamburgerMenu from './HamburgerMenu';
 
 export const NAVBAR_HEIGHT = 80
 const Navbar = () => {
@@ -166,6 +167,9 @@ const Navbar = () => {
               )}
             </Box>
           </Flex>
+        )}
+        {isSmallDevice && (
+          <HamburgerMenu key={`hamburger`} />
         )}
       </Flex>
     </Flex>

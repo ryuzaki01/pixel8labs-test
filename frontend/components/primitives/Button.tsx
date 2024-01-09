@@ -74,10 +74,8 @@ const Button = styled('button', {
       white: {
         backgroundColor: '$whiteA12',
         color: '$secondary10',
-        outline: '2px solid $gray3',
         '&:hover': {
           backgroundColor: '$gray5',
-          outline: '2px solid $primary7',
         },
       },
       red: {

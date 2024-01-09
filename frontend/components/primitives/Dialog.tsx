@@ -34,7 +34,7 @@ const AnimatedOverlay = forwardRef<
 ))
 
 const Content = styled(DialogPrimitive.Content, {
-  backgroundColor: '#000',
+  backgroundColor: '#fff',
   borderRadius: 8,
   $$shadowColor: '#000',
   boxShadow: 'box-shadow: 0px 2px 16px #000',

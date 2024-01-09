@@ -3,11 +3,14 @@ import { faUserGroup, faEnvelope, faEye } from '@fortawesome/free-solid-svg-icon
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { formatNumber } from '../../utils/numbers';
 import Link from 'next/link';
+import { useMounted } from '../../hooks';
+import { useMediaQuery } from 'react-responsive';
+import Skeleton from '../primitives/Skeleton';
 
 export type Profile = {
   name: string
   avatar_url: string
-  username: string
+  login: string
   private: boolean
   bio: string
   email: string
@@ -18,11 +21,14 @@ export type Profile = {
 }
 
 type ProfileCardProps = {
-  profile: Profile
+  profile: Profile,
+  isLoading: boolean
 }
 
 const ProfileCard = (props: ProfileCardProps) => {
-  const { profile } = props;
+  const { profile, isLoading } = props;
+  const isMounted = useMounted()
+  const isSmallDevice = useMediaQuery({ maxWidth: 600 }) && isMounted
 
   return (
     <Flex
@@ -30,17 +36,44 @@ const ProfileCard = (props: ProfileCardProps) => {
       css={{
         p: 24,
         gap: 24,
-        width: 232
+        '@lg': {
+          width: 232
+        }
       }}
-
     >
       <Flex
-        direction="column"
         align="center"
+        css={{
+          flexDirection: 'row',
+          gap: 16,
+          '@lg': {
+            gap: 8,
+            flexDirection: 'column'
+          }
+        }}
       >
-        <Avatar size="xxxxl" src={profile?.avatar_url || ''}/>
-        <Text style="h5" boldest css={{ mt: 8, textAlign: 'center' }}>{profile?.name}</Text>
-        <Text>{profile?.username}</Text>
+        <Avatar size={isSmallDevice ? 'xxxl' : 'xxxxl'} src={profile?.avatar_url || 'https://placehold.co/160x160?text=...'}/>
+        <Flex
+          direction="column"
+          css={{
+            flex: 1,
+            gap: 2,
+            width: '100%'
+          }}
+        >
+
+          {isLoading ? (
+            <>
+              <Skeleton variant="title" css={{ width: '100%' }} />
+              <Skeleton variant="heading" css={{ width: '100%' }} />
+            </>
+          ) : (
+            <>
+              <Text style="h5" boldest css={{ '@lg': { textAlign: 'center' } }}>{profile?.name}</Text>
+              <Text css={{ '@lg': { textAlign: 'center' } }}>{`@${profile?.login || '-'}`}</Text>
+            </>
+          )}
+        </Flex>
       </Flex>
       <Flex
         direction="column"
@@ -69,7 +102,10 @@ const ProfileCard = (props: ProfileCardProps) => {
             }}
           >
             <FontAwesomeIcon icon={faEnvelope} style={{ width: 20, height: 20 }} color="#344054" />
-            <Text style="body2" css={{ mb: 8 }}>{profile?.email || '-'}</Text>
+            {isLoading ?
+              <Skeleton variant="heading" css={{ width: '100%' }} /> :
+              <Text style="body2" css={{ mb: 8 }}>{profile?.email || '-'}</Text>
+            }
           </Flex>
           <Flex
             css={{
@@ -80,14 +116,22 @@ const ProfileCard = (props: ProfileCardProps) => {
             <Flex
               direction="column"
             >
-              <Text>
-                <Text style="body1" boldest css={{ mr: 4 }}>{formatNumber(profile?.followers)}</Text>
-                {`followers`}
-              </Text>
-              <Text>
-                <Text style="body1" boldest css={{ mr: 4 }}>{formatNumber(profile?.following)}</Text>
-                {`following`}
-              </Text>
+              {isLoading ? (
+                <Skeleton variant="heading" css={{ width: '50%' }} />
+              ) : (
+                <Text>
+                  <Text style="body1" boldest css={{ mr: 4 }}>{formatNumber(profile?.followers)}</Text>
+                  {`followers`}
+                </Text>
+              )}
+              {isLoading ? (
+                <Skeleton variant="heading" css={{ width: '50%' }} />
+              ) : (
+                <Text>
+                  <Text style="body1" boldest css={{ mr: 4 }}>{formatNumber(profile?.following)}</Text>
+                  {`following`}
+                </Text>
+              )}
             </Flex>
           </Flex>
           <Flex
@@ -96,17 +140,21 @@ const ProfileCard = (props: ProfileCardProps) => {
             }}
           >
             <FontAwesomeIcon icon={faEye} style={{ width: 20, height: 20 }} color="#344054" />
-            <Text>
-              <Text style="body1" boldest css={{ mr: 4 }}>{formatNumber(profile?.visits)}</Text>
-              {`profile views`}
-            </Text>
+            {isLoading ? (
+              <Skeleton variant="heading" css={{ width: '100%' }} />
+            ) : (
+              <Text>
+                <Text style="body1" boldest css={{ mr: 4 }}>{formatNumber(profile?.visits)}</Text>
+                {`profile views`}
+              </Text>
+            )}
           </Flex>
         </Flex>
         <Text style="body2" boldest css={{ mt: 24 }}>Latest Visitor</Text>
         <Flex>
           {(profile?.visitors || []).map(visitor => (
             <Link key={`visitor-${visitor.username}`} href={`/${visitor.username}`}>
-              <Avatar size="medium" src={visitor.avatar || ''} />
+              <Avatar size="medium" src={visitor.avatar || 'https://placehold.co/160x160?text=...'} />
             </Link>
           ))}
         </Flex>

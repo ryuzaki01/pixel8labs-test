@@ -8,8 +8,15 @@ const visitors: Record<string, Visitor[]> = {}
 
 export default async function userHandler(req: NextApiRequest, res: NextApiResponse) {
   const session: any = await getServerSession(req as any, res as any, authOptions as any);
-  const user = await fetch(`https://api.github.com/users/${req.query.username}`)
-    .then(res => res.json())
+  const headers = new Headers();
+
+  if (session) {
+    headers.append('Authorization', `token ${session.accessToken}`)
+  }
+
+  const user = await fetch(`https://api.github.com/users/${req.query.username}`, {
+    headers
+  }).then(res => res.json())
 
   if (!visitorCounter[req.query.username as string]) {
     visitorCounter[req.query.username as string] = 0;

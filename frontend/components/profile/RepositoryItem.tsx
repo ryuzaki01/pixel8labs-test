@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { Flex, Text } from '../primitives';
 import Badge from '../primitives/Badge';
 import RepoLanguageColor from './RepoLanguageColor';
+import { formatTimeFromNow } from 'utils/time';
 
 type RepositoryItemProps = {
   data: Repository
@@ -37,7 +38,7 @@ const RepositoryItem : FC<RepositoryItemProps> = (props) => {
             }
           }}>{data.language}</Text>
         </Flex>
-        <Text style="body3">{data.updated_at}</Text>
+        <Text style="body3">{formatTimeFromNow(data.updated_at)}</Text>
       </Flex>
     </Flex>
   )

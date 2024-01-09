@@ -4,7 +4,6 @@ import {NextApiRequest, NextApiResponse} from "next";
 
 export default async function profileHandler(req: NextApiRequest, res: NextApiResponse) {
   const session: any = await getServerSession(req as any, res as any, authOptions as any);
-  console.log(session);
 
   if (!session) {
     return res.json({

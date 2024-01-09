@@ -9,7 +9,7 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GITHUB_SECRET as string,
       authorization: {
         url: "https://github.com/login/oauth/authorize",
-        params: { scope: "read:user user:email read:project" },
+        params: { scope: "read:user user:email read:project read:repo" },
       },
       profile(profile) {
         return {
@@ -29,6 +29,9 @@ export const authOptions: NextAuthOptions = {
     secret: process.env.JWT_SECRET,
   },
   callbacks: {
+    async signIn({ user, profile}) {
+      return true
+    },
     async jwt({ token, user, account, profile }) {
       if (profile) {
         // @ts-ignore

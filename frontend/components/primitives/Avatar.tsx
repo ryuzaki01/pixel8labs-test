@@ -39,7 +39,7 @@ const AvatarRoot = styled(AvatarPrimitive.Root, {
         size: 64,
       },
       xxxl: {
-        size: 72,
+        size: 88,
       },
       xxxxl: {
         size: 160,

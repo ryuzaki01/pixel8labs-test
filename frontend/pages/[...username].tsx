@@ -5,12 +5,13 @@ import ProfileCard from '../components/profile/ProfileCard';
 import RepositoryItem from '../components/profile/RepositoryItem';
 import Badge from '../components/primitives/Badge';
 import { useRepositories, useUser } from '../hooks';
+import LoadingSpinner from '../components/common/LoadingSpinner';
 
 type Props = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const ProfilePage = (props: Props) => {
-  const { data: repositories } = useRepositories(props.ssr.username)
-  const { data: profile } = useUser(props.ssr.username)
+  const { data: repositories, isLoading } = useRepositories(props.ssr.username)
+  const { data: profile, isLoading: isLoadingProfile } = useUser(props.ssr.username)
 
   return (
     <Layout>
@@ -29,7 +30,10 @@ const ProfilePage = (props: Props) => {
           },
         }}
       >
-        <ProfileCard profile={profile}/>
+        <ProfileCard
+          profile={profile}
+          isLoading={isLoadingProfile || !profile}
+        />
         <Flex
           css={{
             backgroundColor: '$neutralBg',
@@ -43,11 +47,18 @@ const ProfilePage = (props: Props) => {
         >
           <Flex css={{ gap: 12 }} align="center">
             <Text style="h5" boldest>Repository</Text>
-            <Badge color="secondary" css={{ fontSize: 14, fontWeight: 500, borderRadius: 16 }}>{(repositories || []).length}</Badge>
+            {(!isLoading && (repositories || []).length > 0) && (
+              <Badge color="secondary" css={{ fontSize: 14, fontWeight: 500, borderRadius: 16 }}>{(repositories || []).length}</Badge>
+            )}
           </Flex>
           {(repositories || []).map(repo => (
             <RepositoryItem key={`repo-${repo.name}`} data={repo} />
           ))}
+          {isLoading && (
+            <Flex justify="center" align="center" css={{ minHeight: 300 }}>
+              <LoadingSpinner />
+            </Flex>
+          )}
         </Flex>
       </Flex>
     </Layout>
