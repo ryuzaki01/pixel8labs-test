@@ -1,18 +1,20 @@
 import Link from 'next/link'
 import Image from "next/image"
 import {useMediaQuery} from "react-responsive";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { useRouter } from 'next/router';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import * as HoverCard from '@radix-ui/react-hover-card'
 
 import {Avatar, Box, Button, Flex, Text} from '../primitives'
 import NavItem from './NavItem'
 import { useMounted } from 'hooks'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
 import HamburgerMenu from './HamburgerMenu';
 
 export const NAVBAR_HEIGHT = 80
 const Navbar = () => {
+  const router = useRouter()
   const { data: session } = useSession();
   const isMounted = useMounted()
   const isSmallDevice = useMediaQuery({ maxWidth: 600 }) && isMounted
@@ -169,7 +171,7 @@ const Navbar = () => {
           </Flex>
         )}
         {isSmallDevice && (
-          <HamburgerMenu key={`hamburger`} />
+          <HamburgerMenu key={`${router.asPath}-hamburger`} />
         )}
       </Flex>
     </Flex>

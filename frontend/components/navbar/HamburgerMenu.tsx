@@ -44,7 +44,7 @@ const HamburgerMenu = () => {
           align="center"
           justify="between"
         >
-          <Link href="/octocat">
+          <Link href="/octocat" legacyBehavior>
             <Flex align="center" css={{gap: 10, cursor: 'pointer'}}>
               <Image
                 src="/images/pixel8labs-icon.svg"
