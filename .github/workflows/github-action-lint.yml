@@ -26,7 +26,9 @@ jobs:
           cache: 'npm'
 
       - name: Install modules
+        working-directory: ./frontend
         run: yarn
 
       - name: Running linters
+        working-directory: ./frontend
         run: yarn lint
