@@ -27,12 +27,15 @@ export default async function userHandler(req: NextApiRequest, res: NextApiRespo
   }
 
   if (session && `${req.query.username}` !== session?.user?.username) {
-    const existingVisitor = visitors[req.query.username as string].find(f => f.username === session?.user?.username)
+    const existingVisitor = visitors[req.query.username as string].findIndex(f => f.username === session?.user?.username)
 
-    if (!existingVisitor) {
+    if (existingVisitor > -1) {
+      visitors[req.query.username as string][existingVisitor].lastVisit = (new Date()).getTime()
+    } else {
       visitors[req.query.username as string].unshift({
         username: session.user.username,
-        avatar: session.user.image
+        avatar: session.user.image,
+        lastVisit: (new Date()).getTime()
       })
     }
   }
@@ -43,6 +46,7 @@ export default async function userHandler(req: NextApiRequest, res: NextApiRespo
 
   visitorCounter[req.query.username as string]++;
   user.visits = visitorCounter[req.query.username as string];
-  user.visitors = visitors[req.query.username as string];
+  user.visitors = visitors[req.query.username as string]
+    .sort((a, b) => a.lastVisit - b.lastVisit);
   res.status(200).json(user || null)
 }

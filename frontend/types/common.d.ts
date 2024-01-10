@@ -9,4 +9,5 @@ declare type Repository = {
 declare type Visitor = {
   username: string
   avatar: string
+  lastVisit: number
 }
