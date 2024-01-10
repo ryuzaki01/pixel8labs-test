@@ -136,7 +136,7 @@ const HamburgerMenu = () => {
               </Flex>
             </>
           ) : (
-            <Button size="sm" onClick={() => signIn('github')} css={{ justifyContent: 'center'} }>Login with Github</Button>
+            <Button size="sm" onClick={() => signIn('github', { callbackUrl: '/api/redirect' })} css={{ justifyContent: 'center'} }>Login with Github</Button>
           )}
         </Flex>
       </Flex>

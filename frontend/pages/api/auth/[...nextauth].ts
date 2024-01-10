@@ -25,8 +25,12 @@ export const authOptions: NextAuthOptions = {
       }
     }),
   ],
+  session: {
+    maxAge: 60 * 60 * 4,
+  },
   jwt: {
     secret: process.env.JWT_SECRET,
+    maxAge: 60 * 60 * 4,
   },
   callbacks: {
     async signIn({ user, profile}) {
@@ -42,7 +46,6 @@ export const authOptions: NextAuthOptions = {
         token.accessToken = account.access_token;
         token.idToken = account.id_token;
         token.oktaId = account.providerAccountId;
-        token.accessTokenExpireTimestamp = account.expires_at;
       }
 
       return token
@@ -53,9 +56,6 @@ export const authOptions: NextAuthOptions = {
 
       // @ts-ignore
       session.user.username = token.username
-
-      // @ts-ignore
-      session.maxAge = token.accessTokenExpireTimestamp ? Math.round((new Date(token.accessTokenExpireTimestamp * 1000) - new Date()) / 1000) : null;
 
       return session
     },

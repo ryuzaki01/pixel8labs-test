@@ -165,7 +165,7 @@ const Navbar = () => {
                   </HoverCard.Content>
                 </HoverCard.Root>
               ) : (
-                <Button size="sm" onClick={() => signIn('github')}>Login with Github</Button>
+                <Button size="sm" onClick={() => signIn('github', { callbackUrl: '/api/redirect' })}>Login with Github</Button>
               )}
             </Box>
           </Flex>
