@@ -52,7 +52,7 @@ const ProfileCard = (props: ProfileCardProps) => {
           }
         }}
       >
-        <Avatar size={isSmallDevice ? 'xxxl' : 'xxxxl'} src={profile?.avatar_url || 'https://placehold.co/160x160?text=...'}/>
+        <Avatar fallback="..." size={isSmallDevice ? 'xxxl' : 'xxxxl'} src={profile?.avatar_url || 'https://placehold.co/160x160?text=...'}/>
         <Flex
           direction="column"
           css={{

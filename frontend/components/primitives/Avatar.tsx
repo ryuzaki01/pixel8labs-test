@@ -73,7 +73,7 @@ const AvatarFallback = styled(AvatarPrimitive.Fallback, {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  backgroundColor: '$gray1',
+  backgroundColor: '#999999',
 })
 
 const Avatar = forwardRef<
