@@ -151,7 +151,7 @@ const ProfileCard = (props: ProfileCardProps) => {
           </Flex>
         </Flex>
         <Text style="body2" boldest css={{ mt: 24 }}>Latest Visitor</Text>
-        <Flex>
+        <Flex css={{ gap: 16 }}>
           {(profile?.visitors || []).map(visitor => (
             <Link key={`visitor-${visitor.username}`} href={`/${visitor.username}`}>
               <Avatar size="medium" src={visitor.avatar || 'https://placehold.co/160x160?text=...'} />
