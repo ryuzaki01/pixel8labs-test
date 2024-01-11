@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import NextAuth, {NextAuthOptions} from 'next-auth'
-import GitHubProvider from 'next-auth/providers/github'
+import GitHubProvider  from 'next-auth/providers/github'
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -38,7 +38,6 @@ export const authOptions: NextAuthOptions = {
     },
     async jwt({ token, user, account, profile }) {
       if (profile) {
-        // @ts-ignore
         token.username = profile.login;
       }
 
@@ -51,10 +50,7 @@ export const authOptions: NextAuthOptions = {
       return token
     },
     async session({ session, user, token }) {
-      // @ts-ignore
-      session.accessToken = token.accessToken
-
-      // @ts-ignore
+      session.accessToken = token.accessToken ?? null
       session.user.username = token.username
 
       return session

@@ -6,7 +6,6 @@ import * as Tooltip from '@radix-ui/react-tooltip'
 import ToastContextProvider from 'contexts/ToastContextProvider'
 import nProgress from 'nprogress'
 import 'nprogress/nprogress.css'
-import { Session } from 'next-auth';
 
 nProgress.configure({
   showSpinner: false,
@@ -16,17 +15,11 @@ Router.events.on("routeChangeStart", nProgress.start);
 Router.events.on("routeChangeError", nProgress.done);
 Router.events.on("routeChangeComplete", nProgress.done);
 
-function AppWrapper(props: AppProps<{
-  session: Session;
-}>) {
-  // @ts-ignore
-  const { session, ...pageProps } = props;
+function AppWrapper(props: AppProps) {
+  const { session, ...appProps } = props;
   return (
-    <SessionProvider session={
-      // @ts-ignore
-      props.session
-    }>
-      <MyApp {...pageProps} />
+    <SessionProvider session={session}>
+      <MyApp {...appProps} />
     </SessionProvider>
   )
 }
@@ -40,7 +33,6 @@ function MyApp({
   return (
     <Tooltip.Provider>
       <ToastContextProvider>
-        {/** @ts-ignore **/}
         <Component {...pageProps} />
       </ToastContextProvider>
     </Tooltip.Provider>

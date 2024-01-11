@@ -141,7 +141,6 @@ const Navbar = () => {
                           }
                         }}
                         href={`/${
-                          // @ts-ignore
                           session.user?.username
                         }`}
                       >

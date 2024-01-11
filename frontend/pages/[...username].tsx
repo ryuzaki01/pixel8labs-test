@@ -1,4 +1,7 @@
+import { useEffect } from 'react';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { signIn, useSession } from 'next-auth/react';
+
 import Layout from "components/Layout";
 import {Flex, Text} from "components/primitives";
 import ProfileCard from '../components/profile/ProfileCard';
@@ -10,8 +13,15 @@ import LoadingSpinner from '../components/common/LoadingSpinner';
 type Props = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const ProfilePage = (props: Props) => {
+  const { data: session } = useSession()
   const { data: repositories, isLoading } = useRepositories(props.ssr.username)
   const { data: profile, isLoading: isLoadingProfile } = useUser(props.ssr.username)
+
+  useEffect(() => {
+    if (session?.error === 'RefreshAccessTokenError') {
+      signIn('github') // Force sign in to hopefully resolve error
+    }
+  }, [session])
 
   return (
     <Layout>
